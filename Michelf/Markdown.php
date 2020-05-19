@@ -928,7 +928,7 @@ class Markdown implements MarkdownInterface {
 		 *   ###### Header 6
 		 */
 		$text = preg_replace_callback('{
-				^(\#{1,6})	# $1 = string of #\'s
+				^\#(\d{1,3})	# $1 = string of #\'s
 				[ ]*
 				(.+?)		# $2 = Header text
 				[ ]*
@@ -969,7 +969,7 @@ class Markdown implements MarkdownInterface {
 		// ID attribute generation
 		$idAtt = $this->_generateIdFromHeaderValue($matches[2]);
 
-		$level = strlen($matches[1]);
+		$level = $matches[1];
 		$block = "<h$level$idAtt>".$this->runSpanGamut($matches[2])."</h$level>";
 		return "\n" . $this->hashBlock($block) . "\n\n";
 	}

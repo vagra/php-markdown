@@ -1103,7 +1103,7 @@ class MarkdownExtra extends \Michelf\Markdown {
 		//	###### Header 6   {.class2}
 		//
 		$text = preg_replace_callback('{
-				^(\#{1,6})	# $1 = string of #\'s
+				^\#(\d{1,3})	# $1 = string of #\'s
 				[ ]'.($this->hashtag_protection ? '+' : '*').'
 				(.+?)		# $2 = Header text
 				[ ]*
@@ -1142,7 +1142,7 @@ class MarkdownExtra extends \Michelf\Markdown {
 	 * @return string
 	 */
 	protected function _doHeaders_callback_atx($matches) {
-		$level = strlen($matches[1]);
+		$level = $matches[1];
 
 		$defaultId = is_callable($this->header_id_func) ? call_user_func($this->header_id_func, $matches[2]) : null;
 		$attr  = $this->doExtraAttributes("h$level", $dummy =& $matches[3], $defaultId);
